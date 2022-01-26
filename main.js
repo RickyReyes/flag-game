@@ -7,6 +7,7 @@ let correctCountry;
 let correctFlag;
 let countdown;
 let gameOver = null;
+let msg;
 let choicesAmount = 5;
 let roundLength = 20; /* in seconds */
 const gameLength = 20; /* in seconds */
@@ -66,10 +67,13 @@ function mapCountries(countries) {
 
 function startGame() {
     if (gameOver) gameOver.remove();
+    if (msg) msg.textContent = '';
     remaining.textContent = gameLength;
     remainingTurns = gameLength;
     score = 0;
     total = 0;
+    scoreDiv.textContent = score;
+    totalDiv.textContent = total;
     game.style.display = 'grid';
     newRound();
     $('.start-game').remove();
@@ -137,7 +141,7 @@ function endGame() {
     game.style.display = 'none';
     gameOver = document.createElement('div');
     let result = document.createElement('div');
-    let msg = document.createElement('div');
+    msg = document.createElement('div');
     result.textContent = `you scored ${score} out of ${gameLength}.`;
     msg.textContent = getMessage(score);
     msg.classList.add('center');
