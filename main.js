@@ -138,18 +138,17 @@ function endGame() {
     gameOver = document.createElement('div');
     let result = document.createElement('div');
     let msg = document.createElement('div');
-    result.textContent = `You scored ${score} out of ${gameLength}.`;
+    result.textContent = `you scored ${score} out of ${gameLength}.`;
     msg.textContent = getMessage(score);
     msg.classList.add('center');
     result.classList.add('center');
-    gameOver.textContent = 'Game over.';
+    gameOver.textContent = 'game over.';
     gameOver.classList.add('center');
     startBtn.textContent = 'Play again'
     document.body.append(gameOver);
     document.body.append(msg);
     document.body.append(startBtn);
     gameOver.append(result);
-    
 }
 
 function getMessage(score) {
