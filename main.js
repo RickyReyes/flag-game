@@ -6,7 +6,7 @@ let correctIndex;
 let correctCountry;
 let correctFlag;
 let countdown;
-let gameOver = null;
+let gameOver = false;
 let msg;
 let choicesAmount = 5;
 let roundLength = 20; /* in seconds */
@@ -20,6 +20,7 @@ const scoreDiv = $('.score');
 const totalDiv = $('.total');
 const remaining = $('.remaining');
 const startBtn = $('.start-game');
+
 
 async function getData() {
     try {
@@ -49,6 +50,7 @@ function getNCountries(arr, n) {
     let countries = [];
     for (let i = 0; countries.length < n; i++) {
         let index = Math.floor(Math.random() * arr.length);
+        /* don't get same country twice */
         if (!countries.includes(arr[index])) {
             countries.push(arr[index]);
         }
@@ -59,9 +61,9 @@ function getNCountries(arr, n) {
 /* maps an array of countries into a string to be inserted as html */
 function mapCountries(countries) {
     return countries.map(country => {
-        return `<div class="country">
+        return `<li class="country">
                     ${country.name.common}
-                </div>`
+                </li>`
     }).join('');
 }
 
@@ -101,8 +103,7 @@ function handleClick(e) {
     if (selected == correct) {
         e.target.classList.add('correct');
         score += 1;
-    } 
-    if (selected !== correct) {
+    } else {
         e.target.classList.add('incorrect');
     }
     scoreDiv.textContent = score;
@@ -122,6 +123,7 @@ function startTimer() {
     display.textContent = seconds;
     countdown = setInterval(() => {
       let secondsLeft = Math.round((then - Date.now()) / 1000);
+      /* if time runs out */
       if (secondsLeft == 0) {
         remainingTurns -= 1;
         total += 1;
@@ -142,13 +144,13 @@ function endGame() {
     gameOver = document.createElement('div');
     let result = document.createElement('div');
     msg = document.createElement('div');
-    result.textContent = `you scored ${score} out of ${gameLength}.`;
+    result.textContent = `you scored ${score} out of ${gameLength}`;
     msg.textContent = getMessage(score);
     msg.classList.add('center');
     result.classList.add('center');
-    gameOver.textContent = 'game over.';
     gameOver.classList.add('center');
-    startBtn.textContent = 'Play again'
+    gameOver.textContent = 'game over';
+    startBtn.textContent = 'play again';
     document.body.append(gameOver);
     document.body.append(msg);
     document.body.append(startBtn);
@@ -157,14 +159,14 @@ function endGame() {
 
 function getMessage(score) {
     if (score <= gameLength * .25) {
-        return 'uh oh. 😬';
+        return 'better luck next time';
     } else if (score > gameLength * .25 && score <= gameLength * .5) {
-        return 'meh. 😐'
+        return 'trust the proces'
     } else if (score > gameLength * .5 && score <= gameLength * .75) {
-        return 'not too shabby. 👏'
+        return 'you did very well'
     } else if (score > gameLength * .75 && score != gameLength) {
-        return 'you know your flags. 🙌';
+        return "you're something else";
     } else {
-        return "you're absolutely amazing! 🏅"
+        return "you're top 2 and you're not 2"
     }
 }
