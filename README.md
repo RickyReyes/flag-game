@@ -27,7 +27,7 @@
 
 ### Screenshot
 
-![](./flag-game-ss-copy.png)
+![](./flag-game-ss.png)
 
 ### Links
 
