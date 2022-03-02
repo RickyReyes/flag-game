@@ -100,10 +100,16 @@ function handleClick(e) {
     total += 1;
     let selected = e.target.innerText;
     let correct = correctCountry.name.common;
+    
     if (selected == correct) {
         e.target.classList.add('correct');
         score += 1;
     } else {
+        $$('.country').forEach(country => {
+            if (country.innerText == correct) {
+                country.classList.add('correct')
+            }
+        });
         e.target.classList.add('incorrect');
     }
     scoreDiv.textContent = score;
@@ -161,7 +167,7 @@ function getMessage(score) {
     if (score <= gameLength * .25) {
         return 'better luck next time';
     } else if (score > gameLength * .25 && score <= gameLength * .5) {
-        return 'trust the proces'
+        return 'trust the process'
     } else if (score > gameLength * .5 && score <= gameLength * .75) {
         return 'you did very well'
     } else if (score > gameLength * .75 && score != gameLength) {
